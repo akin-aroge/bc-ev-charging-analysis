@@ -5,6 +5,21 @@ The notebook containing the detailed analysis is provided [analysis notebook ](n
 
 ![ev-staion-growth](./reports/yearly-station-growth.png?raw=true)
 
+## Reproducing the Notebook
+Follow these instruction to reproduce the analysis in the notebook:
+
+1. make sure you have anaconda installed
+2. open the anaconda prompt and run the following commands
+```
+conda env create -f environment.yml
+```
+4. run the command below which opens a browser tab
+```
+jupyter lab
+```
+5. navigate to the project folder and then to the notebook file
+6. the notebook should now run successfully
+
 ## Project Organization
 
 -------------------------
