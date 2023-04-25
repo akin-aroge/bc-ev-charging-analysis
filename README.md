@@ -1,9 +1,9 @@
-# BC EV Chraging Stations
+# BC EV Charging Stations
 The current state of the public electric vehicle (EV) charging station network in British Columbia (B.C.).
 The notebook containing the detailed analysis is provided [analysis notebook ](notebook/01-analysis.ipynb).
 
 
-![ev-staion-growth](./reports/yearly-station-growth.png?raw=true)
+![ev-station-growth](./reports/yearly-station-growth.png?raw=true)
 
 ## Reproducing the Notebook
 Follow these instruction to reproduce the analysis in the notebook:
@@ -19,6 +19,16 @@ jupyter lab
 ```
 5. navigate to the project folder and then to the notebook file
 6. the notebook should now run successfully
+
+## Dashboard Snapshot
+The dashboard connects to the source api [here](https://natural-resources.canada.ca/energy-efficiency/transportation-alternative-fuels/electric-charging-alternative-fuelling-stationslocator-map/20487#/analyze?region=CA-BC&fuel=ELEC&status=E&status=P&country=CA) provided by by Natural Resources Canada (NRCan)
+
+![ev-station-growth](./reports/dashboard_snapshot.png?raw=true)
+
+1. Run the folliwng command at project root
+```
+streamlit run dashboard.py
+```
 
 ## Project Organization
 

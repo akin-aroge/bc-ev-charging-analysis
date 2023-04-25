@@ -27,7 +27,7 @@ def _pull_data():
         response.raise_for_status()
         r_dict = response.json()
         raw_data = pd.json_normalize(r_dict['fuel_stations'])
-        print("data refresh")
+        # print("data refresh")
         return raw_data
     except requests.exceptions.RequestException as e:
         raise SystemExit(e)

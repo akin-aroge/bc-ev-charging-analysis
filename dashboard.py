@@ -46,7 +46,7 @@ with st.sidebar:
     
 
     # Charging level, drop select
-    st.write("Charing Levels")
+    st.write("Charging Levels")
 
     charging_levels = ('ev_level1_evse_num','ev_level2_evse_num', 'ev_dc_fast_num')
     charging_levels_rename = ['level 1', 'level 2', 'level 3 (DCFC)']
