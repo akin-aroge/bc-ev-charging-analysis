@@ -71,11 +71,15 @@ instance/
 # Sphinx documentation
 docs/_build/
 
+# Streamlit stuff
+secrets.toml
+
 # PyBuilder
 target/
 
 # Jupyter Notebook
 .ipynb_checkpoints
+rough*.ipynb
 
 # IPython
 profile_default/
