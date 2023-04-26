@@ -2,10 +2,11 @@ import numpy as np  # np mean, np random
 import pandas as pd  # read csv, df manipulation
 # import plotly.express as px  # interactive charts
 import streamlit as st  # 🎈 data web app development
+from streamlit_folium import st_folium, folium_static
 import os
 import matplotlib.pyplot as plt
 import seaborn as sns
-from src import processing
+from src import processing, visualization
 
 # @st.experimental_memo
 
@@ -99,9 +100,7 @@ with st.sidebar:
 
 
 
-# filters
-
-
+# filtered data
 df = df[mask_n_evse_ports & mask_conn_types]
 
 # Body
@@ -163,7 +162,7 @@ open_date_agg_df = (pd.DataFrame({'open_date':pd.to_datetime(open_date),'value':
                     .reset_index())
 
 
-# plot
+# 
 sns.set_style("darkgrid")
 fig, ax = plt.subplots()
 sns.lineplot(x='year', y='value', marker='o', data=open_date_agg_df, label='Yearly Total', ax=ax)
@@ -172,3 +171,8 @@ ax.set_ylabel('Number of Stations');
 ax.set_xlabel('Year')
 ax.set_title('Yearly Available EV Station Growth (with Level 2 and DC Fast EVSE)');
 st.pyplot(fig)
+
+
+# row: map plot
+m = visualization.map_plot(select_df=df)
+st_folium(m, returned_objects=[], height=600, width=1200)
