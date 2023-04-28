@@ -36,10 +36,11 @@ st.set_page_config(
 
 # row 1: dashboard title
 st.title("BC EV Charging Stations Dashboard")
+st.caption("Data Source: Natural Resources Canada [link](https://natural-resources.canada.ca/energy-efficiency/transportation-alternative-fuels/electric-charging-alternative-fuelling-stationslocator-map/20487#/analyze?region=CA-BC&fuel=ELEC&status=E&status=P&country=CA)")
 
 with st.sidebar:
     
-    connect_to_api = st.checkbox(label="Refresh data source")
+    connect_to_api = st.checkbox(label="Refresh Data from API")
     # refresh = st.button(label="refresh data")
 
     if connect_to_api:
@@ -91,7 +92,7 @@ with st.sidebar:
     )
     connector_types = temp_df.dropna().explode().unique().tolist()
     default_conn_type = connector_types[0]
-    select_conn_types = st.multiselect(label='Choose connector types:',
+    select_conn_types = st.multiselect(label='select connector types:',
                    options=connector_types,
                    default=default_conn_type)
 
@@ -163,16 +164,31 @@ open_date_agg_df = (pd.DataFrame({'open_date':pd.to_datetime(open_date),'value':
 
 
 # 
-sns.set_style("darkgrid")
-fig, ax = plt.subplots()
-sns.lineplot(x='year', y='value', marker='o', data=open_date_agg_df, label='Yearly Total', ax=ax)
-sns.lineplot(x='year', y='cumsum', marker='o', data=open_date_agg_df, label='Cumulative Total', ax=ax)
-ax.set_ylabel('Number of Stations');
-ax.set_xlabel('Year')
-ax.set_title('Yearly Available EV Station Growth (with Level 2 and DC Fast EVSE)');
-st.pyplot(fig)
+# sns.set_style("darkgrid")
+# fig, ax = plt.subplots()
+# sns.lineplot(x='year', y='value', marker='o', data=open_date_agg_df, label='Yearly Total', ax=ax)
+# sns.lineplot(x='year', y='cumsum', marker='o', data=open_date_agg_df, label='Cumulative Total', ax=ax)
+# ax.set_ylabel('Number of Stations');
+# ax.set_xlabel('Year')
+# ax.set_title('Yearly Available EV Station Growth (with Level 2 and DC Fast EVSE)');
+# st.pyplot(fig)
+# col1, col2 = st.columns(2)
+col1 = st.container()
+with col1:
+    st.write("Yearly Available EV Station Growth:")
+    import plotly.express as px
+    fig = px.line(open_date_agg_df, x='year', y=['value', 'cumsum'], markers=True)
+    fig.update_layout(yaxis_title='value')
+    st.plotly_chart(fig, use_container_width=True)
+
+col1, col2, col3 = st.columns([1,1,1])
+with col2:
+    st.write("Map of EV Locations:")
+    m = visualization.map_plot(select_df=df)
+    folium_static(m)
+
 
 
 # row: map plot
-m = visualization.map_plot(select_df=df)
-st_folium(m, returned_objects=[], height=600, width=1200)
+
+

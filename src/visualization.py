@@ -55,6 +55,7 @@ def plot_map(data, status='all', min_l2_ports=0, min_dcfc_ports=0, free_charging
 
 def map_plot(select_df):
     
+    # f = folium.Figure(width=500, height=500)
     m = folium.Map(location=[49.2827, -123.1207], tiles="OpenStreetMap", zoom_start=9)
     
     for _, id in enumerate(select_df.id):
@@ -79,4 +80,5 @@ def map_plot(select_df):
                             radius=n_ports / 4.0,
                             opacity=0.8
                             ).add_to(m)
+        
     return m
