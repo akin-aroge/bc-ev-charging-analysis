@@ -23,7 +23,7 @@ jupyter lab
 ## Dashboard Snapshot
 The [dashboard](https://akin-aroge-bc-ev-charging-analysis-dashboard-kc67ya.streamlit.app/) connects to the source api [here](https://natural-resources.canada.ca/energy-efficiency/transportation-alternative-fuels/electric-charging-alternative-fuelling-stationslocator-map/20487#/analyze?region=CA-BC&fuel=ELEC&status=E&status=P&country=CA) provided by by Natural Resources Canada (NRCan)
 
-![ev-station-growth](./reports/dashboard_snapshot.PNG?raw=true)
+![ev-station-growth](./reports/dashboard_snapshot_2.PNG?raw=true)
 
 1. Run the folliwng command at project root
 ```

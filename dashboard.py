@@ -10,7 +10,7 @@ from src import processing, visualization
 
 # @st.experimental_memo
 
-
+# @st.cache
 def get_data(file_path, update=False):
     
     # TODO: put in try block
@@ -35,12 +35,13 @@ st.set_page_config(
 )
 
 # row 1: dashboard title
-st.title("BC EV Charging Stations Dashboard")
+st.title("BC EV Charging Stations Dashboard") 
 st.caption("Data Source: Natural Resources Canada [link](https://natural-resources.canada.ca/energy-efficiency/transportation-alternative-fuels/electric-charging-alternative-fuelling-stationslocator-map/20487#/analyze?region=CA-BC&fuel=ELEC&status=E&status=P&country=CA)")
-
+st.caption("Source code: [github](https://github.com/akin-aroge/bc-ev-charging-analysis)")
 with st.sidebar:
     
-    connect_to_api = st.checkbox(label="Refresh Data from API")
+    connect_to_api = st.button(label="Refresh Data from API" )
+    # connect_to_api = st.checkbox(label="Refresh Data from API")
     # refresh = st.button(label="refresh data")
 
     if connect_to_api:
@@ -181,8 +182,8 @@ with col1:
     fig.update_layout(yaxis_title='value')
     st.plotly_chart(fig, use_container_width=True)
 
-col1, col2, col3 = st.columns([1,1,1])
-with col2:
+col1, col2, col3, col4 = st.columns([1,1,1,1])
+with col1:
     st.write("Map of EV Locations:")
     m = visualization.map_plot(select_df=df)
     folium_static(m)
