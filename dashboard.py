@@ -5,6 +5,7 @@ import streamlit as st  # 🎈 data web app development
 from streamlit_folium import st_folium, folium_static
 import os
 import matplotlib.pyplot as plt
+import plotly.express as px
 import seaborn as sns
 from src import processing, visualization
 
@@ -130,7 +131,7 @@ n_working_stns_delta = n_working_stns - n_working_stns_till_last_month
 kpi1.metric(
     label="# of EV stations ⏳",
     value=int(n_working_stns),
-    delta=int(n_working_stns_delta),
+    delta=str(int(n_working_stns_delta))+ " (month increase)",
 )
 
 # col number of planned stations:
@@ -147,7 +148,7 @@ n_planned_stns_till_last_month = (expected_date_year_month[expected_date_year_mo
 n_planned_stns_delta = n_planned_stns - n_planned_stns_till_last_month
 
 kpi2.metric(
-    label="# of *Planned* EV stations ⏳",
+    label="# of Planned EV stations ⏳",
     value=int(n_planned_stns),
     # delta=int(n_planned_stns_delta),
 )
@@ -160,7 +161,7 @@ open_date_agg_df = (pd.DataFrame({'open_date':pd.to_datetime(open_date),'value':
                     .dropna()
                     .resample(rule='Y', on='open_date').agg({'value':np.sum})
                     .assign(cumsum = lambda x: np.cumsum(x['value']))
-                    .assign(year=lambda x: x.index.year)
+                    # .assign(year=lambda x: x.index.year)
                     .reset_index())
 
 
@@ -177,12 +178,13 @@ open_date_agg_df = (pd.DataFrame({'open_date':pd.to_datetime(open_date),'value':
 col1 = st.container()
 with col1:
     st.write("Yearly Available EV Station Growth:")
-    import plotly.express as px
-    fig = px.line(open_date_agg_df, x='year', y=['value', 'cumsum'], markers=True)
-    fig.update_layout(yaxis_title='value')
-    st.plotly_chart(fig, use_container_width=True)
+    
+    fig = px.line(open_date_agg_df, x='open_date', y=['value', 'cumsum'], markers=True)
+    fig.update_layout(yaxis_title='# of stations')
+    st.plotly_chart(fig, use_container_width=True, theme="streamlit")
 
-col1, col2, col3, col4 = st.columns([1,1,1,1])
+# col1, col2, col3, col4, col5 = st.columns([1,1,1,1,1])
+col1 = st.container()
 with col1:
     st.write("Map of EV Locations:")
     m = visualization.map_plot(select_df=df)
